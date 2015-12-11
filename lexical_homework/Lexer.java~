@@ -8,6 +8,12 @@ public class Lexer {
 	public Lexer() {
 		reserve(new Word(Tag.TRUE, "true"));
 		reserve(new Word(Tag.FALSE, "false"));
+		reserve(new Word(Tag.LESS, "<"));
+		reserve(new Word(Tag.LE, "<="));
+		reserve(new Word(Tag.EQUAL, "=="));
+		reserve(new Word(Tag.NE, "!="));
+		reserve(new Word(Tag.LE, ">="));
+		reserve(new Word(Tag.LARGER, ">"));
 	}
 	public Token scan() throws IOException {
 		int slash_tag = 0;
