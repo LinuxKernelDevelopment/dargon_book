@@ -5,5 +5,5 @@ public class Tag {
 	public final static int
 		LESS = 260, LE = 270, EQUAL = 271, NE = 272;
 	public final static int
-		LAE = 273, LARGER = 274;
+		LAE = 273, LARGER = 274, FLOAT = 275;
 }

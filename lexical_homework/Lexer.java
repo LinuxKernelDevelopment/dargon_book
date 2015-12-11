@@ -47,30 +47,43 @@ public class Lexer {
 			else break;
 		}
 			
-			if (Character.isDigit(peek)) {
-				int v = 0;
-				do {
-					v = 10*v + Character.digit(peek, 10);
-					peek = (char)System.in.read();
-				} while ( Character.isDigit(peek) );
+		if (Character.isDigit(peek)) {
+			int v = 0;
+			int before_dot = 0;
+			int after_dot = 0;
+			int is_float = 0;
+			do {
+				if (peek == '.') {
+					before_dot = v;
+					is_float = 1;
+					v = 0;
+				}
+				v = 10*v + Character.digit(peek, 10);
+				peek = (char)System.in.read();
+			} while ( Character.isDigit(peek) );
+			if (is_float == 0)
 				return new Num(v);
+			else {
+				after_dot = v;
+				return new Float(before_dot, after_dot);
 			}
-			if (Character.isLetter(peek)) {
-				StringBuffer b = new StringBuffer();
-				do {
-					b.append(peek);
-					peek = (char)System.in.read();
-				} while( Character.isLetterOrDigit(peek) );
-				String s = b.toString();
-				Word w = (Word)words.get(s);
-				if ( w != null) return w;
-				w = new Word(Tag.ID, s);
-				words.put(s, w);
-				return w;
-			}
-			Token t = new Token(peek);
-			peek = ' ';
-			return t;
+		}
+		if (Character.isLetter(peek)) {
+			StringBuffer b = new StringBuffer();
+			do {
+				b.append(peek);
+				peek = (char)System.in.read();
+			} while( Character.isLetterOrDigit(peek) );
+			String s = b.toString();
+			Word w = (Word)words.get(s);
+			if ( w != null) return w;
+			w = new Word(Tag.ID, s);
+			words.put(s, w);
+			return w;
+		}
+		Token t = new Token(peek);
+		peek = ' ';
+		return t;
 		}
 }
 
